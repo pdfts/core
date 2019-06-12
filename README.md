@@ -1,4 +1,4 @@
-![NPM](https://img.shields.io/npm/l/@pdfts/core.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com)
+![GitHub](https://img.shields.io/github/license/pdfts/core.svg)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/pdfts/core.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pdfts/core/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/pdfts/core.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pdfts/core/context:javascript)
 
