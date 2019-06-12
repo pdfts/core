@@ -1,5 +1,3 @@
-import { ControlCharacters } from '../controlcharacters';
-
 /**
  *
  *
@@ -13,7 +11,7 @@ export class Trailer {
    * @type {string}
    * @memberof Trailer
    */
-  public ID: string = 'd41d8cd98f00b204e9800998ecf8427e'; // ToDo: how do these IDs even work? 
+  public ID: string = 'd41d8cd98f00b204e9800998ecf8427e'; // ToDo: how do these IDs even work?
 
   /**
    *

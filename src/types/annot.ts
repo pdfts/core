@@ -1,6 +1,5 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
-import { Widget } from './subtypes/widget';
 
 export class Annot extends PdfObject {
   constructor(public Id: number, public Generation: number) {
