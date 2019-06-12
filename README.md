@@ -1,6 +1,11 @@
 ![GitHub](https://img.shields.io/github/license/pdfts/core.svg)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/pdfts/core.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pdfts/core/alerts/)
+![npm](https://img.shields.io/npm/v/@pdfts/core.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/pdfts/core.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/pdfts/core.svg)
+[<img src="https://img.shields.io/discord/588429293546373129.svg">](https://discord.gg/invite/TApPsxp)
+
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/pdfts/core.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pdfts/core/context:javascript)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/pdfts/core.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pdfts/core/alerts/)
 
 # pdf.ts
 
