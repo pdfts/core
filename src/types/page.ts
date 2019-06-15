@@ -4,7 +4,12 @@ import { PdfObjectReference } from '../base/pdfobjectreference';
 import { PageSize, PageOrientation } from '../pagesizes';
 
 export class Page extends PdfObject {
-  public MediaBox = [0, 0, 600, 400];
+  /**
+   * The MediaBox is the visible Page rectangle
+   *
+   * @memberof Page
+   */
+  public MediaBox = [0, 0, 0, 0];
 
   constructor(
     public Id: number,
@@ -27,22 +32,46 @@ export class Page extends PdfObject {
      */
   }
 
+  /**
+   *
+   *
+   * @returns {string}
+   * @memberof Page
+   */
   compileMediaBox(): string {
     return `/MediaBox [${this.MediaBox[0]} ${this.MediaBox[1]} ${
       this.MediaBox[2]
     } ${this.MediaBox[3]}]`;
   }
 
+  /**
+   *
+   *
+   * @returns {string}
+   * @memberof Page
+   */
   compileResources(): string {
     return `/Resources << >>`;
   }
 
+  /**
+   *
+   *
+   * @returns {string}
+   * @memberof Page
+   */
   compileParent(): string {
     return this.Parent
       ? `/Parent ${this.Parent.Id} ${this.Parent.Generation} R`
       : '';
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof Page
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

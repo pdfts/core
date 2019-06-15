@@ -10,7 +10,6 @@ import { Pages, Catalog } from './base/pdfobjecttypes';
 import { FontDescriptor } from './types/fontdescriptor';
 import { Font } from './types/font';
 import { FontWidths } from './types/fontwidths';
-import { FontEncoding } from './types/fontencoding';
 import { FontFile } from './types/fontfile';
 import { Filespec } from './types/filespec';
 import { EmbeddedFile } from './types/embeddedfile';
@@ -19,6 +18,12 @@ import { Names } from './types/names';
 import diverda = require('./fonts/diverda.json');
 import times = require('./fonts/times-roman.json');
 
+/**
+ * This is what we want. A PDF Document :3
+ *
+ * @export
+ * @class PDFDocument
+ */
 export class PDFDocument {
   private fonts = <any>[];
   private header: Header;
@@ -26,35 +31,41 @@ export class PDFDocument {
   private pagesDictionary: Pages;
   private catalog: Catalog;
   private names: Names;
+
   private patches: any[] = []; // not yet defined
   private trailer: Trailer; // not yet defined
   private xref: Xref; // not yet defined
 
+  /**
+   * Creates an instance of PDFDocument with a prefilled structure and one empty page.
+   *
+   * @param {PageSize} pagesize
+   * @memberof PDFDocument
+   */
   constructor(private pagesize: PageSize) {
     this.fonts.push(diverda);
     this.fonts.push(times);
 
-    //}, options?, text?) {
     // ToDo: decide if we need a header object since its just 2 lines and a fixed version number
     // ! PDF/A-3 with file attachments becomes PDF/A-4f
     this.header = new Header(1.7); // ToDo Update to 2.0 as soon as PDF/A-4 hits
     this.trailer = new Trailer();
 
     // ! initialize first page a bit more elegant please
-    this.catalog = new ObjectTypes.Catalog(this.objects.length + 1, 0);
+    this.catalog = new ObjectTypes.Catalog(this.nextObjectId, 0);
     this.objects.push(this.catalog);
 
-    this.names = new Names(this.objects.length + 1, 0, []);
+    this.names = new Names(this.nextObjectId, 0, []);
     this.catalog.attachments.push(this.names);
     this.objects.push(this.names);
 
-    this.pagesDictionary = new ObjectTypes.Pages(this.objects.length + 1, 0);
+    this.pagesDictionary = new ObjectTypes.Pages(this.nextObjectId, 0);
     this.objects.push(this.pagesDictionary);
 
-    let page = new ObjectTypes.Page(this.objects.length + 1, 0, pagesize);
+    let page = new ObjectTypes.Page(this.nextObjectId, 0, pagesize);
     this.objects.push(page);
 
-    let meta = new ObjectTypes.MetaData(this.objects.length + 1, 0);
+    let meta = new ObjectTypes.MetaData(this.nextObjectId, 0);
     this.objects.push(meta);
 
     this.catalog.Pages = {
@@ -78,6 +89,28 @@ export class PDFDocument {
       Id: this.pagesDictionary.Id,
       Generation: this.pagesDictionary.Generation
     };
+  }
+
+  /**
+   * Getter to determine the next available object Id
+   *
+   *
+   * @readonly
+   * @type {number}
+   * @memberof PDFDocument
+   */
+  get nextObjectId(): number {
+    var taken = this.objects.find(object => {
+      return object.Id === this.objects.length + 1;
+    });
+
+    if (!taken) {
+      return this.objects.length + 1;
+    }
+
+    // ? haven't had this issue yet but it might be possible
+    // ? let's find a way to handle it when we encounter this error
+    throw 'Object ID already taken. If you encounter this Error, please create an Issue on github with an example PDF';
   }
 
   /**
@@ -172,13 +205,22 @@ export class PDFDocument {
     return '[object PDFDocument]';
   }
 
+  /**
+   * Append a new and empty page to the PDF.
+   *
+   * @param {PageSize} pagesize
+   * @param {PageOrientation} [pageOrientation=PageOrientation.Portrait]
+   * @param {number} [needle]
+   * @returns {PDFDocument}
+   * @memberof PDFDocument
+   */
   addPage(
     pagesize: PageSize,
     pageOrientation: PageOrientation = PageOrientation.Portrait,
     needle?: number
   ): PDFDocument {
     let page = new ObjectTypes.Page(
-      this.objects.length + 1,
+      this.nextObjectId,
       0,
       pagesize,
       pageOrientation
@@ -198,41 +240,26 @@ export class PDFDocument {
 
     return this;
   }
-  addPages(count: number, needle?: number): PDFDocument {
-    return this;
-  }
-  removePage(index: number): PDFDocument {
-    return this;
-  }
-  removePages(count: number, needle?: number): PDFDocument {
-    return this;
-  }
-  gotoPage(index: number): PDFDocument {
-    return this;
-  }
-  text(): PDFDocument {
-    return this;
-  }
-  pageBreak(): PDFDocument {
-    return this;
-  }
 
-  // .addAttachment('helloworld.txt', 'Hello World!!!')
+  /**
+   * Adds an Attachment to the PDF
+   * (does not upload or load from filesystem!)
+   *
+   * @param {string} fileName
+   * @param {string} fileContent
+   * @returns
+   * @memberof PDFDocument
+   */
   addAttachment(fileName: string, fileContent: string) {
     let embeddedfile = new EmbeddedFile(
-      this.objects.length + 1,
+      this.nextObjectId,
       0,
       fileName,
       fileContent
     );
     this.objects.push(embeddedfile);
 
-    let filespec = new Filespec(
-      this.objects.length + 1,
-      0,
-      fileName,
-      embeddedfile
-    );
+    let filespec = new Filespec(this.nextObjectId, 0, fileName, embeddedfile);
     this.objects.push(filespec);
 
     this.names.NamedReferences.push(filespec);
@@ -253,7 +280,7 @@ export class PDFDocument {
     });
 
     let fontFile = new FontFile(
-      this.objects.length + 1,
+      this.nextObjectId,
       0,
       fontJSON.Subtype,
       fontJSON.BaseFont,
@@ -265,15 +292,11 @@ export class PDFDocument {
     );
     this.objects.push(fontFile);
 
-    let fontWidths = new FontWidths(
-      this.objects.length + 1,
-      0,
-      fontJSON.Widths
-    );
+    let fontWidths = new FontWidths(this.nextObjectId, 0, fontJSON.Widths);
     this.objects.push(fontWidths);
 
     let fontDescriptor = new FontDescriptor(
-      this.objects.length + 1,
+      this.nextObjectId,
       0,
       fontJSON.FontDescriptor.FontName,
       fontJSON.FontDescriptor.FontFamily,
@@ -294,7 +317,7 @@ export class PDFDocument {
     this.objects.push(fontDescriptor);
 
     let font = new Font(
-      this.objects.length + 1,
+      this.nextObjectId,
       0,
       fontFile,
       fontDescriptor,

@@ -1,6 +1,13 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 
+/**
+ *
+ *
+ * @export
+ * @class EmbeddedFile
+ * @extends {PdfObject}
+ */
 export class EmbeddedFile extends PdfObject {
   constructor(
     public Id: number,
@@ -13,6 +20,12 @@ export class EmbeddedFile extends PdfObject {
     this.Type = PdfObjectType.EmbeddedFile;
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof EmbeddedFile
+   */
   compileUnprocessed() {
     // ToDo: uhm... ya... you know
     return [
@@ -21,10 +34,23 @@ export class EmbeddedFile extends PdfObject {
       `/Params <</ModDate (D:${'20121110104707'})>>`
     ];
   }
+
+  /**
+   *
+   *
+   * @returns
+   * @memberof EmbeddedFile
+   */
   endObject() {
     return ['>>', 'stream', this._fileContent, 'endstream', 'endobj'];
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof EmbeddedFile
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

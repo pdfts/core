@@ -2,9 +2,15 @@ import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { FontDescriptor } from './fontdescriptor';
 import { FontWidths } from './fontwidths';
-import { FontEncoding } from './fontencoding';
 import { FontFile } from './fontfile';
 
+/**
+ *
+ *
+ * @export
+ * @class Font
+ * @extends {PdfObject}
+ */
 export class Font extends PdfObject {
   constructor(
     public Id: number,
@@ -18,8 +24,13 @@ export class Font extends PdfObject {
     this.Type = PdfObjectType.Font;
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof Font
+   */
   compileUnprocessed() {
-    // ToDo: uhm... ya... you know
     return [
       `/Type /Font`,
       `/Subtype /TrueType`,
@@ -30,6 +41,12 @@ export class Font extends PdfObject {
     ];
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof Font
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

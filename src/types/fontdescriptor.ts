@@ -2,6 +2,13 @@ import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { FontFile } from './fontfile';
 
+/**
+ *
+ *
+ * @export
+ * @class FontDescriptor
+ * @extends {PdfObject}
+ */
 export class FontDescriptor extends PdfObject {
   constructor(
     public Id: number,
@@ -27,6 +34,12 @@ export class FontDescriptor extends PdfObject {
     this.Type = PdfObjectType.FontDescriptor;
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof FontDescriptor
+   */
   compileUnprocessed() {
     return [
       `/FontName /${this.FontName}`,
@@ -47,6 +60,12 @@ export class FontDescriptor extends PdfObject {
     ];
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof FontDescriptor
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

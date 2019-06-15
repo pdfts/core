@@ -9,7 +9,7 @@ export class Sig extends PdfObject {
   }
 
   compileUnprocessed() {
-    // ToDo: uhm... ya... you know
+    // ToDo: just added the file and a demo sig field...
     // /Desc removed
     return [
       '/Type /Sig',

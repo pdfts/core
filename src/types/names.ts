@@ -1,6 +1,13 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 
+/**
+ * An object containing an array of name object references
+ *
+ * @export
+ * @class Names
+ * @extends {PdfObject}
+ */
 export class Names extends PdfObject {
   constructor(
     public Id: number,
@@ -12,6 +19,12 @@ export class Names extends PdfObject {
     this.Type = PdfObjectType.Filespec;
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof Names
+   */
   compileUnprocessed() {
     // ToDo: uhm... ya... you know
     return [
@@ -21,6 +34,12 @@ export class Names extends PdfObject {
     ];
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof Names
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

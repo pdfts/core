@@ -1,15 +1,52 @@
 import { PdfObjectType } from './pdfobjecttype.enum';
 import { PdfObjectReference } from './pdfobjectreference';
 
+/**
+ *
+ *
+ * @export
+ * @abstract
+ * @class PdfObject
+ */
 export abstract class PdfObject {
+  /**
+   *
+   *
+   * @type {number}
+   * @memberof PdfObject
+   */
   public Id: number;
 
+  /**
+   *
+   *
+   * @type {number}
+   * @memberof PdfObject
+   */
   public Generation: number;
 
+  /**
+   *
+   *
+   * @type {PdfObjectType}
+   * @memberof PdfObject
+   */
   public Type: PdfObjectType;
 
+  /**
+   *
+   *
+   * @type {PdfObjectReference[]}
+   * @memberof PdfObject
+   */
   public Kids?: PdfObjectReference[];
 
+  /**
+   *
+   *
+   * @type {PdfObjectReference}
+   * @memberof PdfObject
+   */
   public Parent?: PdfObjectReference;
 
   /**
@@ -49,18 +86,42 @@ export abstract class PdfObject {
     return this._byteLength;
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof PdfObject
+   */
   compile(): string[] {
     throw 'don\'t call the abstract compile';
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof PdfObject
+   */
   startObject(): string[] {
     return [`${this.Id} ${this.Generation} obj`, '<<'];
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof PdfObject
+   */
   endObject(): string[] {
     return ['>>', 'endobj'];
   }
 
+  /**
+   *
+   *
+   * @returns {string}
+   * @memberof PdfObject
+   */
   compileType(): string {
     return `/Type /${this.Type}`;
   }

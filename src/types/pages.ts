@@ -2,6 +2,13 @@ import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { PdfObjectReference } from '../base/pdfobjectreference';
 
+/**
+ * Pages is a Dictionary in PDF which contains references to all Page Objects
+ *
+ * @export
+ * @class Pages
+ * @extends {PdfObject}
+ */
 export class Pages extends PdfObject {
   constructor(
     public Id: number,
@@ -32,6 +39,12 @@ export class Pages extends PdfObject {
     return ['/Kids [', ...kids, ']'];
   }
 
+  /**
+   *
+   *
+   * @returns {string}
+   * @memberof Pages
+   */
   compileCount(): string {
     if (!this.Kids || this.Kids.length === 0) {
       return '';
@@ -40,6 +53,12 @@ export class Pages extends PdfObject {
     return `/Count ${this.Kids!.length}`;
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof Pages
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

@@ -2,6 +2,13 @@ import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { EmbeddedFile } from './embeddedfile';
 
+/**
+ *
+ *
+ * @export
+ * @class Filespec
+ * @extends {PdfObject}
+ */
 export class Filespec extends PdfObject {
   constructor(
     public Id: number,
@@ -14,6 +21,12 @@ export class Filespec extends PdfObject {
     this.Type = PdfObjectType.Filespec;
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof Filespec
+   */
   compileUnprocessed() {
     // ToDo: uhm... ya... you know
     // /Desc removed
@@ -25,6 +38,12 @@ export class Filespec extends PdfObject {
     ];
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof Filespec
+   */
   compile(): string[] {
     return [
       ...this.startObject(),

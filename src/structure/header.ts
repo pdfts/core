@@ -1,3 +1,9 @@
+/**
+ *
+ *
+ * @export
+ * @class Header
+ */
 export class Header {
   private version: number;
 
@@ -11,10 +17,22 @@ export class Header {
     this.version = version;
   }
 
+  /**
+   *
+   *
+   * @returns {string[]}
+   * @memberof Header
+   */
   compile(): string[] {
     return [`%PDF-${this.version.toFixed(1)}`, '%\xFF\xFF\xFF\xFF', ''];
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof Header
+   */
   toJson() {
     return {
       type: '...',
