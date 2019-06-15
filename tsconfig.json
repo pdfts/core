@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "experimentalDecorators": true,
     "lib": ["es2018", "dom"],
     "module": "commonjs",

@@ -12,12 +12,15 @@ import { Font } from './types/font';
 import { FontWidths } from './types/fontwidths';
 import { FontEncoding } from './types/fontencoding';
 import { FontFile } from './types/fontfile';
-import { Diverda } from './fonts/diverda';
 import { Filespec } from './types/filespec';
 import { EmbeddedFile } from './types/embeddedfile';
 import { Names } from './types/names';
 
+import diverda = require('./fonts/diverda.json');
+import times = require('./fonts/times-roman.json');
+
 export class PDFDocument {
+  private fonts = <any>[];
   private header: Header;
   private objects: PdfObject[] = [];
   private pagesDictionary: Pages;
@@ -28,6 +31,9 @@ export class PDFDocument {
   private xref: Xref; // not yet defined
 
   constructor(private pagesize: PageSize) {
+    this.fonts.push(diverda);
+    this.fonts.push(times);
+
     //}, options?, text?) {
     // ToDo: decide if we need a header object since its just 2 lines and a fixed version number
     // ! PDF/A-3 with file attachments becomes PDF/A-4f
@@ -234,36 +240,65 @@ export class PDFDocument {
     return this;
   }
 
-  // .addFont('diverda')
+  /**
+   * embed a font into the pdf by the postscript name
+   *
+   * @param {string} fontName
+   * @returns
+   * @memberof PDFDocument
+   */
   addFont(fontName: string) {
+    let fontJSON = this.fonts.find((font: any) => {
+      return font.BaseFont === fontName;
+    });
+
     let fontFile = new FontFile(
       this.objects.length + 1,
       0,
-      fontName,
-      Diverda.data
+      fontJSON.Subtype,
+      fontJSON.BaseFont,
+      fontJSON.FirstChar,
+      fontJSON.LastChar,
+      fontJSON.FontDescriptor.FontFile2.Length,
+      fontJSON.FontDescriptor.FontFile2.Length1,
+      fontJSON.FontDescriptor.FontFile2.Stream
     );
     this.objects.push(fontFile);
+
+    let fontWidths = new FontWidths(
+      this.objects.length + 1,
+      0,
+      fontJSON.Widths
+    );
+    this.objects.push(fontWidths);
 
     let fontDescriptor = new FontDescriptor(
       this.objects.length + 1,
       0,
-      fontName,
+      fontJSON.FontDescriptor.FontName,
+      fontJSON.FontDescriptor.FontFamily,
+      fontJSON.FontDescriptor.FontStretch,
+      fontJSON.FontDescriptor.FontWeight,
+      fontJSON.FontDescriptor.Flags,
+      fontJSON.FontDescriptor.FontBBox,
+      fontJSON.FontDescriptor.ItalicAngle,
+      fontJSON.FontDescriptor.Ascent,
+      fontJSON.FontDescriptor.Descent,
+      fontJSON.FontDescriptor.CapHeight,
+      fontJSON.FontDescriptor.XHeight,
+      fontJSON.FontDescriptor.StemV,
+      fontJSON.FontDescriptor.AvgWidth,
+      fontJSON.FontDescriptor.MaxWidth,
       fontFile
     );
     this.objects.push(fontDescriptor);
 
-    let fontWidths = new FontWidths(this.objects.length + 1, 0, fontName);
-    this.objects.push(fontWidths);
-
-    let fontEncoding = new FontEncoding(this.objects.length + 1, 0);
-    this.objects.push(fontEncoding);
-
     let font = new Font(
       this.objects.length + 1,
       0,
+      fontFile,
       fontDescriptor,
-      fontWidths,
-      fontEncoding
+      fontWidths
     );
     this.objects.push(font);
 

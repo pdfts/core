@@ -5,8 +5,13 @@ export class FontFile extends PdfObject {
   constructor(
     public Id: number,
     public Generation: number,
-    private _fontName: string,
-    private _fontData: string
+    public Subtype: string,
+    public BaseFont: string,
+    public FirstChar: string,
+    public LastChar: string,
+    public Length: number,
+    public Length1: number,
+    public Stream: string
   ) {
     super();
 
@@ -17,7 +22,7 @@ export class FontFile extends PdfObject {
     return [
       '>>',
       'stream',
-      Buffer.from(this._fontData, 'base64').toString(),
+      Buffer.from(this.Stream, 'base64').toString(),
       'endstream',
       'endobj'
     ];

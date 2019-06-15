@@ -7,7 +7,8 @@
   "scripts": {
     "start": "tsc example.ts & node example.js",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
-    "testWithCoverage": "nyc -r lcov -e .ts -x \"*.test.ts\" mocha -r ts-node/register tests/**/*.test.ts && nyc report"
+    "testWithCoverage": "nyc -r lcov -e .ts -x \"*.test.ts\" mocha -r ts-node/register tests/**/*.test.ts && nyc report",
+    "buildeditor": "browserify src/pdf.browser.ts -p [ tsify --noImplicitAny ] > ../editor/application/bundle.js"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",

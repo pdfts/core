@@ -3,12 +3,23 @@ import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { FontFile } from './fontfile';
 
 export class FontDescriptor extends PdfObject {
-  public FontBBox = [-166, -225, 1000, 931];
-
   constructor(
     public Id: number,
     public Generation: number,
-    private _fontName: string,
+    public FontName: string,
+    public FontFamily: string,
+    public FontStretch: number,
+    public FontWeight: number,
+    public Flags: number,
+    public FontBBox: number[],
+    public ItalicAngle: number,
+    public Ascent: number,
+    public Descent: number,
+    public CapHeight: number,
+    public XHeight: number,
+    public StemV: number,
+    public AvgWidth: number,
+    public MaxWidth: number,
     private _fontFile: FontFile
   ) {
     super();
@@ -16,21 +27,22 @@ export class FontDescriptor extends PdfObject {
     this.Type = PdfObjectType.FontDescriptor;
   }
 
-  compileName(): string {
-    return `/FontName /${this._fontName}`;
-  }
-
   compileUnprocessed() {
-    // ToDo: uhm... ya... you know
     return [
-      '/Flags 32',
+      `/FontName /${this.FontName}`,
+      `/FontFamily ${this.FontFamily}`,
+      `/FontStretch ${this.FontStretch}`,
+      `/FontWeight ${this.FontWeight}`,
+      `/Flags ${this.Flags}`,
       `/FontBBox [${this.FontBBox.join(' ')}]`,
-      '/ItalicAngle 0',
-      '/Ascent 718',
-      '/Descent -207',
-      '/CapHeight 718',
-      '/StemV 88',
-      '/MissingWidth 0',
+      `/ItalicAngle ${this.ItalicAngle}`,
+      `/Ascent ${this.Ascent}`,
+      `/Descent ${this.Descent}`,
+      `/CapHeight ${this.CapHeight}`,
+      `/XHeight ${this.XHeight}`,
+      `/StemV ${this.StemV}`,
+      `/AvgWidth ${this.AvgWidth}`,
+      `/MaxWidth ${this.MaxWidth}`,
       `/FontFile2 ${this._fontFile.Id} ${this._fontFile.Generation} R`
     ];
   }
@@ -38,7 +50,6 @@ export class FontDescriptor extends PdfObject {
   compile(): string[] {
     return [
       ...this.startObject(),
-      this.compileName(),
       ...this.compileUnprocessed(),
       ...this.endObject()
     ];

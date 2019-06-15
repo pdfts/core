@@ -3,14 +3,15 @@ import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { FontDescriptor } from './fontdescriptor';
 import { FontWidths } from './fontwidths';
 import { FontEncoding } from './fontencoding';
+import { FontFile } from './fontfile';
 
 export class Font extends PdfObject {
   constructor(
     public Id: number,
     public Generation: number,
+    private _fontFile: FontFile,
     private _fontDescriptor: FontDescriptor,
-    private _fontWidths: FontWidths,
-    private _fontEncoding: FontEncoding
+    private _fontWidths: FontWidths
   ) {
     super();
 
@@ -21,14 +22,11 @@ export class Font extends PdfObject {
     // ToDo: uhm... ya... you know
     return [
       `/Type /Font`,
-      `/Subtype /Type1`,
-      `/BaseFont /Diverda_Sans_Com_Medium`,
-      `/FirstChar 32`,
-      `/LastChar 255`,
-      `/Widths ${this._fontWidths.Id} ${this._fontWidths.Generation} R`,
-      `/FontEncoding  ${this._fontEncoding.Id} ${
-        this._fontEncoding.Generation
-      } R`
+      `/Subtype /TrueType`,
+      `/BaseFont /${this._fontDescriptor.FontName}`,
+      `/FirstChar ${this._fontFile.FirstChar}`,
+      `/LastChar ${this._fontFile.LastChar}`,
+      `/Widths ${this._fontWidths.Id} ${this._fontWidths.Generation} R`
     ];
   }
 
