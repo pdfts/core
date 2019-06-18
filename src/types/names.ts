@@ -29,7 +29,9 @@ export class Names extends PdfObject {
     // ToDo: uhm... ya... you know
     return [
       `/Names [ ${this.NamedReferences.map((ref, index) => {
-        return `(${('000' + index).slice(-3)}) ${ref.Id} ${ref.Generation} R`;
+        return `(${('test.txt' + index).slice(-3)}) ${ref.Id} ${
+          ref.Generation
+        } R`;
       }).join(' ')}]`
     ];
   }

@@ -6,7 +6,7 @@ import { PdfObject } from './base/pdfobject';
 import * as ObjectTypes from './base/pdfobjecttypes';
 import { PageSize, PageOrientation } from './pagesizes';
 import { ControlCharacters } from './controlcharacters';
-import { Pages, Catalog } from './base/pdfobjecttypes';
+import { Pages, Catalog, Page } from './base/pdfobjecttypes';
 import { FontDescriptor } from './types/fontdescriptor';
 import { Font } from './types/font';
 import { FontWidths } from './types/fontwidths';
@@ -15,8 +15,12 @@ import { Filespec } from './types/filespec';
 import { EmbeddedFile } from './types/embeddedfile';
 import { Names } from './types/names';
 
+import { TextEncoder } from 'util';
+
 import diverda = require('./fonts/diverda.json');
 import times = require('./fonts/times-roman.json');
+import { PdfObjectReference } from './base/pdfobjectreference';
+import { Content } from './types/content';
 
 /**
  * This is what we want. A PDF Document :3
@@ -25,10 +29,15 @@ import times = require('./fonts/times-roman.json');
  * @class PDFDocument
  */
 export class PDFDocument {
-  private fonts = <any>[];
+  private fontFiles = <any>[];
+  private fonts: Font[] = [];
+
   private header: Header;
   private objects: PdfObject[] = [];
+
+  private pages: Page[] = [];
   private pagesDictionary: Pages;
+
   private catalog: Catalog;
   private names: Names;
 
@@ -43,8 +52,8 @@ export class PDFDocument {
    * @memberof PDFDocument
    */
   constructor(private pagesize: PageSize) {
-    this.fonts.push(diverda);
-    this.fonts.push(times);
+    this.fontFiles.push(diverda);
+    this.fontFiles.push(times);
 
     // ToDo: decide if we need a header object since its just 2 lines and a fixed version number
     // ! PDF/A-3 with file attachments becomes PDF/A-4f
@@ -63,6 +72,8 @@ export class PDFDocument {
     this.objects.push(this.pagesDictionary);
 
     let page = new ObjectTypes.Page(this.nextObjectId, 0, pagesize);
+    page.Fonts = this.fonts;
+    this.pages.push(page);
     this.objects.push(page);
 
     let meta = new ObjectTypes.MetaData(this.nextObjectId, 0);
@@ -226,6 +237,8 @@ export class PDFDocument {
       pageOrientation
     );
 
+    page.Fonts = this.fonts;
+
     this.pagesDictionary.Kids.push({
       Id: page.Id,
       Generation: page.Generation
@@ -236,6 +249,7 @@ export class PDFDocument {
       Generation: this.pagesDictionary.Generation
     };
 
+    this.pages.push(page);
     this.objects.push(page);
 
     return this;
@@ -274,8 +288,8 @@ export class PDFDocument {
    * @returns
    * @memberof PDFDocument
    */
-  addFont(fontName: string) {
-    let fontJSON = this.fonts.find((font: any) => {
+  addFont(fontName: string): PDFDocument {
+    let fontJSON = this.fontFiles.find((font: any) => {
       return font.BaseFont === fontName;
     });
 
@@ -323,7 +337,39 @@ export class PDFDocument {
       fontDescriptor,
       fontWidths
     );
+
+    this.fonts.push(font);
     this.objects.push(font);
+
+    return this;
+  }
+
+  setDefaultFont(
+    fontname: string,
+    fontweight: number,
+    fontsize: number
+  ): PDFDocument {
+    return this;
+  }
+
+  private _activePage: number = 1;
+  setActivePage(index: number) {
+    this._activePage = index;
+  }
+  get ActivePage(): PdfObjectReference {
+    return this.pagesDictionary.Kids[this._activePage - 1];
+  }
+
+  text(text: string[]): PDFDocument {
+    const page: Page = this.pages.find(page => {
+      return page.Id === this.ActivePage.Id;
+    });
+
+    let content = new Content(this.nextObjectId, 0);
+    content.Stream = text;
+
+    page.Contents.push(content);
+    this.objects.push(content);
 
     return this;
   }

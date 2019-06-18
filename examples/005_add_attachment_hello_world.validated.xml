@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <buildInformation>
+    <releaseDetails id="core" version="1.12.1" buildDate="2018-05-08T18:57:00+02:00"></releaseDetails>
+    <releaseDetails id="validation-model" version="1.12.1" buildDate="2018-05-08T20:39:00+02:00"></releaseDetails>
+    <releaseDetails id="gui" version="1.12.1" buildDate="2018-05-08T22:06:00+02:00"></releaseDetails>
+  </buildInformation>
+  <jobs>
+    <job>
+      <item size="1306">
+        <name>C:\Users\indamed\Documents\github\pdf.ts\examples\005_add_attachment_hello_world.pdf</name>
+      </item>
+      <validationReport profileName="PDF/A-3U validation profile" statement="PDF file is not compliant with Validation Profile requirements." isCompliant="false">
+        <details passedRules="122" failedRules="3" passedChecks="133" failedChecks="6">
+          <rule specification="ISO 19005-3:2012" clause="6.8" testNumber="3" status="failed" passedChecks="0" failedChecks="2">
+            <description>In order to enable identification of the relationship between the file specification dictionary and the content that is referring to it,
+			a new (required) key has been defined and its presence (in the dictionary) is required.</description>
+            <object>CosFileSpecification</object>
+            <test>AFRelationship != null</test>
+            <check status="failed">
+              <context>root/EmbeddedFiles[0]</context>
+            </check>
+            <check status="failed">
+              <context>root/indirectObjects[0](7 0)/directObject[0]</context>
+            </check>
+          </rule>
+          <rule specification="ISO 19005-3:2012" clause="6.8" testNumber="4" status="failed" passedChecks="0" failedChecks="2">
+            <description>The additional information provided for associated files as well as the usage requirements for associated files indicate the relationship
+		between the embedded file and the PDF document or the part of the PDF document with which it is associated.</description>
+            <object>CosFileSpecification</object>
+            <test>isAssociatedFile == true</test>
+            <check status="failed">
+              <context>root/EmbeddedFiles[0]</context>
+            </check>
+            <check status="failed">
+              <context>root/indirectObjects[0](7 0)/directObject[0]</context>
+            </check>
+          </rule>
+          <rule specification="ISO 19005-3:2012" clause="6.8" testNumber="1" status="failed" passedChecks="0" failedChecks="2">
+            <description>The MIME type of an embedded file, or a subset of a file, shall be specified using the Subtype key of the file specification dictionary.
+			If the MIME type is not known, the "application/octet-stream" shall be used.</description>
+            <object>EmbeddedFile</object>
+            <test>Subtype != null &amp;&amp; /^[-\w+\.]+\/[-\w+\.]+$/.test(Subtype)</test>
+            <check status="failed">
+              <context>root/EmbeddedFiles[0]/EF[0]</context>
+            </check>
+            <check status="failed">
+              <context>root/indirectObjects[0](7 0)/directObject[0]/EF[0]</context>
+            </check>
+          </rule>
+        </details>
+      </validationReport>
+      <duration start="1559912202416" finish="1559912202763">00:00:00.347</duration>
+    </job>
+  </jobs>
+  <batchSummary totalJobs="1" failedToParse="0" encrypted="0">
+    <validationReports compliant="0" nonCompliant="1" failedJobs="0">1</validationReports>
+    <featureReports failedJobs="0">0</featureReports>
+    <repairReports failedJobs="0">0</repairReports>
+    <duration start="1559912202328" finish="1559912202789">00:00:00.461</duration>
+  </batchSummary>
+</report>

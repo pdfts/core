@@ -1,0 +1,89 @@
+﻿<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Validation Report</title>
+  </head>
+  <body>
+    <style>body{font-family: Consolas;}</style>
+    <h1 align="left"><strong><b>Validation Report</b></strong></h1>
+    <div>
+      <style>
+                div {
+                font-family: sans-serif;
+                }
+                .invalid {
+                color: red;
+                font-weight: bold;
+                }
+                .valid {
+                color: green;
+                font-weight: bold;
+                }
+                th {
+                text-align: left;
+                }
+                .policy th, .policy td {
+                padding: 5px;
+                }
+            </style><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript">
+                if(typeof $ === 'function'){
+                $(document).ready(function(){
+                $(".hideable").hide();
+                $(".hide-tr").show();
+                $(".hide-tr").click(function(){
+                $("." + $(this).attr("data-target")).toggle();
+                var prevText = $(this).text();
+                $(this).text($(this).attr('data-translation-toggle'));
+                $(this).attr('data-translation-toggle', prevText)
+                return false;
+                });
+                });
+                }
+            </script><table border="0" id="table1">
+        <tr>
+          <td width="200"><b>File:</b></td>
+          <td>C:\Users\indamed\Documents\github\pdf.ts\examples\003_add_headlines.pdf</td>
+        </tr>
+        <tr>
+          <td width="200"><b>Validation Profile:</b></td>
+          <td>PDF/A-3U validation profile</td>
+        </tr>
+        <tr>
+          <td width="200" class="valid">
+                            PDF/A compliance:
+                        </td>
+          <td class="valid">
+                                Passed
+                            </td>
+        </tr>
+      </table>
+      <h2>Statistics</h2>
+      <table border="0" id="table2">
+        <tr>
+          <td width="250"><b>Version:</b></td>
+          <td>1.12.1</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Build Date:</b></td>
+          <td>2018-05-08T22:06:00+02:00</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Processing time:</b></td>
+          <td>00:00:00.322</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Total rules in Profile:</b></td>
+          <td>125</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Passed Checks:</b></td>
+          <td>93</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Failed Checks:</b></td>
+          <td>0</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

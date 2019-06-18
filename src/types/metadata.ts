@@ -4,6 +4,8 @@ import { PdfObjectReference } from '../base/pdfobjectreference';
 import { XMPMeta } from '../structure/xmpmeta';
 import { ControlCharacters } from '../controlcharacters';
 
+import { TextEncoder } from 'util';
+
 /**
  *
  *

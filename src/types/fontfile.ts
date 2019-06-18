@@ -49,8 +49,8 @@ export class FontFile extends PdfObject {
    */
   compileUnprocessed() {
     return [
-      `/Length ${this.Length}`,
-      `/Length1 ${this.Length1}`,
+      `/Length ${this.Length + 4}`,
+      `/Length1 ${this.Length1 + 4}`,
       `/Filter /FlateDecode`
     ];
   }

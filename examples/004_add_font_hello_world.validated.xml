@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <buildInformation>
+    <releaseDetails id="core" version="1.12.1" buildDate="2018-05-08T18:57:00+02:00"></releaseDetails>
+    <releaseDetails id="validation-model" version="1.12.1" buildDate="2018-05-08T20:39:00+02:00"></releaseDetails>
+    <releaseDetails id="gui" version="1.12.1" buildDate="2018-05-08T22:06:00+02:00"></releaseDetails>
+  </buildInformation>
+  <jobs>
+    <job>
+      <item size="120400">
+        <name>C:\Users\indamed\Documents\github\pdf.ts\examples\004_add_font_hello_world.pdf</name>
+      </item>
+      <validationReport profileName="PDF/A-3U validation profile" statement="PDF file is not compliant with Validation Profile requirements." isCompliant="false">
+        <details passedRules="124" failedRules="1" passedChecks="393" failedChecks="1">
+          <rule specification="ISO 19005-3:2012" clause="6.1.7" testNumber="1" status="failed" passedChecks="0" failedChecks="1">
+            <description>The value of the Length key specified in the stream dictionary shall match the number of bytes in the file following the LINE FEED (0Ah) character
+			after the stream keyword and preceding the EOL marker before the endstream keyword.</description>
+            <object>CosStream</object>
+            <test>isLengthCorrect</test>
+            <check status="failed">
+              <context>root/indirectObjects[4](6 0)/directObject[0]</context>
+            </check>
+          </rule>
+        </details>
+      </validationReport>
+      <duration start="1559912201328" finish="1559912201755">00:00:00.427</duration>
+    </job>
+  </jobs>
+  <batchSummary totalJobs="1" failedToParse="0" encrypted="0">
+    <validationReports compliant="0" nonCompliant="1" failedJobs="0">1</validationReports>
+    <featureReports failedJobs="0">0</featureReports>
+    <repairReports failedJobs="0">0</repairReports>
+    <duration start="1559912201238" finish="1559912201774">00:00:00.536</duration>
+  </batchSummary>
+</report>

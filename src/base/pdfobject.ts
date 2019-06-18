@@ -1,6 +1,8 @@
 import { PdfObjectType } from './pdfobjecttype.enum';
 import { PdfObjectReference } from './pdfobjectreference';
 
+import { TextEncoder } from 'util';
+
 /**
  *
  *

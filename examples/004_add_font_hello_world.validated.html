@@ -1,0 +1,132 @@
+﻿<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Validation Report</title>
+  </head>
+  <body>
+    <style>body{font-family: Consolas;}</style>
+    <h1 align="left"><strong><b>Validation Report</b></strong></h1>
+    <div>
+      <style>
+                div {
+                font-family: sans-serif;
+                }
+                .invalid {
+                color: red;
+                font-weight: bold;
+                }
+                .valid {
+                color: green;
+                font-weight: bold;
+                }
+                th {
+                text-align: left;
+                }
+                .policy th, .policy td {
+                padding: 5px;
+                }
+            </style><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript">
+                if(typeof $ === 'function'){
+                $(document).ready(function(){
+                $(".hideable").hide();
+                $(".hide-tr").show();
+                $(".hide-tr").click(function(){
+                $("." + $(this).attr("data-target")).toggle();
+                var prevText = $(this).text();
+                $(this).text($(this).attr('data-translation-toggle'));
+                $(this).attr('data-translation-toggle', prevText)
+                return false;
+                });
+                });
+                }
+            </script><table border="0" id="table1">
+        <tr>
+          <td width="200"><b>File:</b></td>
+          <td>C:\Users\indamed\Documents\github\pdf.ts\examples\004_add_font_hello_world.pdf</td>
+        </tr>
+        <tr>
+          <td width="200"><b>Validation Profile:</b></td>
+          <td>PDF/A-3U validation profile</td>
+        </tr>
+        <tr>
+          <td width="200" class="invalid">
+                            PDF/A compliance:
+                        </td>
+          <td class="invalid">
+                                Failed
+                            </td>
+        </tr>
+      </table>
+      <h2>Statistics</h2>
+      <table border="0" id="table2">
+        <tr>
+          <td width="250"><b>Version:</b></td>
+          <td>1.12.1</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Build Date:</b></td>
+          <td>2018-05-08T22:06:00+02:00</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Processing time:</b></td>
+          <td>00:00:00.427</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Total rules in Profile:</b></td>
+          <td>125</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Passed Checks:</b></td>
+          <td>393</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Failed Checks:</b></td>
+          <td>1</td>
+        </tr>
+      </table>
+      <h2>Validation information</h2>
+      <table border="0" id="table3">
+        <tr style="BACKGROUND: #bcbad6">
+          <td width="800"><b>Rule</b></td>
+          <td width="50"><b>Status</b></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800"><a href="https://github.com/veraPDF/veraPDF-validation-profiles/wiki/PDFA-Parts-2-and-3-rules#rule-617-1">
+                    Specification:
+                    ISO 19005-3:2012,
+                    Clause:
+                    6.1.7,
+                    Test number:
+                    1</a></td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">The value of the Length key specified in the stream dictionary shall match the number of bytes in the file following the LINE FEED (0Ah) character
+			after the stream keyword and preceding the EOL marker before the endstream keyword.</td>
+          <td width="50"><b><font color="red"><b>Failed</b></font></b></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">1 occurrences
+                </td>
+          <td width="50"><a id="lable6_1_7t1" href="#" style="display: none;" class="hide-tr" data-target="hide6_1_7t1" data-translation-toggle="Hide">Show
+                        </a></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_1_7t1">
+          <td width="800" style="word-break: break-all">CosStream</td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_1_7t1">
+          <td width="800" style="word-break: break-all">isLengthCorrect</td>
+          <td></td>
+        </tr>
+        <tr class="hideable hide6_1_7t1">
+          <td width="800" style="word-break: break-all">root/indirectObjects[4](6 0)/directObject[0]</td>
+        </tr>
+        <tr>
+          <td><br></td>
+          <td><br></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

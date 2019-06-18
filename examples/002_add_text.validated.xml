@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <buildInformation>
+    <releaseDetails id="core" version="1.12.1" buildDate="2018-05-08T18:57:00+02:00"></releaseDetails>
+    <releaseDetails id="validation-model" version="1.12.1" buildDate="2018-05-08T20:39:00+02:00"></releaseDetails>
+    <releaseDetails id="gui" version="1.12.1" buildDate="2018-05-08T22:06:00+02:00"></releaseDetails>
+  </buildInformation>
+  <jobs>
+    <job>
+      <item size="1038">
+        <name>C:\Users\indamed\Documents\github\pdf.ts\examples\002_add_text.pdf</name>
+      </item>
+      <validationReport profileName="PDF/A-3U validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
+        <details passedRules="125" failedRules="0" passedChecks="93" failedChecks="0"></details>
+      </validationReport>
+      <duration start="1559912199359" finish="1559912199684">00:00:00.325</duration>
+    </job>
+  </jobs>
+  <batchSummary totalJobs="1" failedToParse="0" encrypted="0">
+    <validationReports compliant="1" nonCompliant="0" failedJobs="0">1</validationReports>
+    <featureReports failedJobs="0">0</featureReports>
+    <repairReports failedJobs="0">0</repairReports>
+    <duration start="1559912199277" finish="1559912199710">00:00:00.433</duration>
+  </batchSummary>
+</report>

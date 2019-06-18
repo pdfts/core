@@ -32,6 +32,7 @@ export class Filespec extends PdfObject {
     // /Desc removed
     return [
       '/Type /Filespec',
+      '/AFRelationship /Unspecified',
       `/F (${this._fileName})`, // ! escaped filename
       `/UF (${this._fileName})`, // ! utf8 encoded filename
       `/EF <</F ${this._embeddedFile.Id} ${this._embeddedFile.Generation} R>>` // ToDo add embedded file reference

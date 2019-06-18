@@ -31,7 +31,7 @@ export class EmbeddedFile extends PdfObject {
     return [
       '/Type /EmbeddedFile',
       `/Length ${this._fileContent.length}`,
-      `/Params <</ModDate (D:${'20121110104707'})>>`
+      `/Params <</ModDate (D:${'20121110104707'})>>` // ToDo insert actual Date
     ];
   }
 

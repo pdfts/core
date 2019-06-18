@@ -1,0 +1,76 @@
+%PDF-1.7
+%ÿÿÿÿ
+
+1 0 obj
+<<
+/Type /Catalog
+/Pages 3 0 R
+/Metadata 5 0 R
+/Names << /EmbeddedFiles 2 0 R >>
+/PageMode /UseAttachments
+>>
+endobj
+
+2 0 obj
+<<
+/Names [ ]
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Pages
+/Kids [
+  4 0 R
+]
+/Count 1
+>>
+endobj
+
+4 0 obj
+<<
+/Type /Page
+/Parent 3 0 R
+/MediaBox [0 0 595.28 841.89]
+/Resources << >>
+>>
+endobj
+
+5 0 obj
+<<
+/Length 356
+/Type /Metadata
+/Subtype /XML
+>>
+stream
+<x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Insert XMP tool name here.'>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">
+      <pdfaid:part>3</pdfaid:part>
+      <pdfaid:conformance>U</pdfaid:conformance>
+    </rdf:Description>
+  </rdf:RDF>
+</x:xmpmeta>
+endstream
+endobj
+
+xref
+0 6
+0000000000 65535 f
+0000000020 00000 n
+0000000146 00000 n
+0000000179 00000 n
+0000000241 00000 n
+0000000336 00000 n
+trailer
+<<
+/ID [
+  <d41d8cd98f00b204e9800998ecf8427e>
+  <d41d8cd98f00b204e9800998ecf8427e>
+]
+/Root 1 0 R
+/Size 6
+>>
+startxref
+774
+%%EOF

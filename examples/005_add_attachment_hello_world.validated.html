@@ -1,0 +1,213 @@
+﻿<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Validation Report</title>
+  </head>
+  <body>
+    <style>body{font-family: Consolas;}</style>
+    <h1 align="left"><strong><b>Validation Report</b></strong></h1>
+    <div>
+      <style>
+                div {
+                font-family: sans-serif;
+                }
+                .invalid {
+                color: red;
+                font-weight: bold;
+                }
+                .valid {
+                color: green;
+                font-weight: bold;
+                }
+                th {
+                text-align: left;
+                }
+                .policy th, .policy td {
+                padding: 5px;
+                }
+            </style><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript">
+                if(typeof $ === 'function'){
+                $(document).ready(function(){
+                $(".hideable").hide();
+                $(".hide-tr").show();
+                $(".hide-tr").click(function(){
+                $("." + $(this).attr("data-target")).toggle();
+                var prevText = $(this).text();
+                $(this).text($(this).attr('data-translation-toggle'));
+                $(this).attr('data-translation-toggle', prevText)
+                return false;
+                });
+                });
+                }
+            </script><table border="0" id="table1">
+        <tr>
+          <td width="200"><b>File:</b></td>
+          <td>C:\Users\indamed\Documents\github\pdf.ts\examples\005_add_attachment_hello_world.pdf</td>
+        </tr>
+        <tr>
+          <td width="200"><b>Validation Profile:</b></td>
+          <td>PDF/A-3U validation profile</td>
+        </tr>
+        <tr>
+          <td width="200" class="invalid">
+                            PDF/A compliance:
+                        </td>
+          <td class="invalid">
+                                Failed
+                            </td>
+        </tr>
+      </table>
+      <h2>Statistics</h2>
+      <table border="0" id="table2">
+        <tr>
+          <td width="250"><b>Version:</b></td>
+          <td>1.12.1</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Build Date:</b></td>
+          <td>2018-05-08T22:06:00+02:00</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Processing time:</b></td>
+          <td>00:00:00.347</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Total rules in Profile:</b></td>
+          <td>125</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Passed Checks:</b></td>
+          <td>133</td>
+        </tr>
+        <tr>
+          <td width="250"><b>Failed Checks:</b></td>
+          <td>6</td>
+        </tr>
+      </table>
+      <h2>Validation information</h2>
+      <table border="0" id="table3">
+        <tr style="BACKGROUND: #bcbad6">
+          <td width="800"><b>Rule</b></td>
+          <td width="50"><b>Status</b></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800"><a href="https://github.com/veraPDF/veraPDF-validation-profiles/wiki/PDFA-Parts-2-and-3-rules#rule-68-3">
+                    Specification:
+                    ISO 19005-3:2012,
+                    Clause:
+                    6.8,
+                    Test number:
+                    3</a></td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">In order to enable identification of the relationship between the file specification dictionary and the content that is referring to it,
+			a new (required) key has been defined and its presence (in the dictionary) is required.</td>
+          <td width="50"><b><font color="red"><b>Failed</b></font></b></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">2 occurrences
+                </td>
+          <td width="50"><a id="lable6_8t3" href="#" style="display: none;" class="hide-tr" data-target="hide6_8t3" data-translation-toggle="Hide">Show
+                        </a></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_8t3">
+          <td width="800" style="word-break: break-all">CosFileSpecification</td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_8t3">
+          <td width="800" style="word-break: break-all">AFRelationship != null</td>
+          <td></td>
+        </tr>
+        <tr class="hideable hide6_8t3">
+          <td width="800" style="word-break: break-all">root/EmbeddedFiles[0]</td>
+        </tr>
+        <tr class="hideable hide6_8t3">
+          <td width="800" style="word-break: break-all">root/indirectObjects[0](7 0)/directObject[0]</td>
+        </tr>
+        <tr>
+          <td><br></td>
+          <td><br></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800"><a href="https://github.com/veraPDF/veraPDF-validation-profiles/wiki/PDFA-Parts-2-and-3-rules#rule-68-4">
+                    Specification:
+                    ISO 19005-3:2012,
+                    Clause:
+                    6.8,
+                    Test number:
+                    4</a></td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">The additional information provided for associated files as well as the usage requirements for associated files indicate the relationship
+		between the embedded file and the PDF document or the part of the PDF document with which it is associated.</td>
+          <td width="50"><b><font color="red"><b>Failed</b></font></b></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">2 occurrences
+                </td>
+          <td width="50"><a id="lable6_8t4" href="#" style="display: none;" class="hide-tr" data-target="hide6_8t4" data-translation-toggle="Hide">Show
+                        </a></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_8t4">
+          <td width="800" style="word-break: break-all">CosFileSpecification</td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_8t4">
+          <td width="800" style="word-break: break-all">isAssociatedFile == true</td>
+          <td></td>
+        </tr>
+        <tr class="hideable hide6_8t4">
+          <td width="800" style="word-break: break-all">root/EmbeddedFiles[0]</td>
+        </tr>
+        <tr class="hideable hide6_8t4">
+          <td width="800" style="word-break: break-all">root/indirectObjects[0](7 0)/directObject[0]</td>
+        </tr>
+        <tr>
+          <td><br></td>
+          <td><br></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800"><a href="https://github.com/veraPDF/veraPDF-validation-profiles/wiki/PDFA-Parts-2-and-3-rules#rule-68-1">
+                    Specification:
+                    ISO 19005-3:2012,
+                    Clause:
+                    6.8,
+                    Test number:
+                    1</a></td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">The MIME type of an embedded file, or a subset of a file, shall be specified using the Subtype key of the file specification dictionary.
+			If the MIME type is not known, the "application/octet-stream" shall be used.</td>
+          <td width="50"><b><font color="red"><b>Failed</b></font></b></td>
+        </tr>
+        <tr style="BACKGROUND: #dcdaf6">
+          <td width="800">2 occurrences
+                </td>
+          <td width="50"><a id="lable6_8t1" href="#" style="display: none;" class="hide-tr" data-target="hide6_8t1" data-translation-toggle="Hide">Show
+                        </a></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_8t1">
+          <td width="800" style="word-break: break-all">EmbeddedFile</td>
+          <td></td>
+        </tr>
+        <tr style="BACKGROUND: #eceaf6" class="hideable hide6_8t1">
+          <td width="800" style="word-break: break-all">Subtype != null &amp;&amp; /^[-\w+\.]+\/[-\w+\.]+$/.test(Subtype)</td>
+          <td></td>
+        </tr>
+        <tr class="hideable hide6_8t1">
+          <td width="800" style="word-break: break-all">root/EmbeddedFiles[0]/EF[0]</td>
+        </tr>
+        <tr class="hideable hide6_8t1">
+          <td width="800" style="word-break: break-all">root/indirectObjects[0](7 0)/directObject[0]/EF[0]</td>
+        </tr>
+        <tr>
+          <td><br></td>
+          <td><br></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

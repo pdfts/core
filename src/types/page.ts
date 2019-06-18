@@ -11,6 +11,9 @@ export class Page extends PdfObject {
    */
   public MediaBox = [0, 0, 0, 0];
 
+  public Contents: PdfObjectReference[] = [];
+  public Fonts: PdfObjectReference[] = [];
+
   constructor(
     public Id: number,
     public Generation: number,
@@ -50,8 +53,27 @@ export class Page extends PdfObject {
    * @returns {string}
    * @memberof Page
    */
-  compileResources(): string {
-    return `/Resources << >>`;
+  compileResources(): string[] {
+    return [
+      '/Resources <<',
+      '  /Font <<',
+      ...this.Fonts.map((font, index) => {
+        return `    /F${index} ${font.Id} ${font.Generation} R`;
+      }),
+      '  >>',
+      '>>'
+    ];
+  }
+
+  compileContentReferences(): string[] {
+    return [
+      '/Contents [',
+      ...this.Contents.map((content, index) => {
+        return ` ${content.Id} ${content.Generation} R`;
+      }),
+      ,
+      ']'
+    ];
   }
 
   /**
@@ -78,7 +100,8 @@ export class Page extends PdfObject {
       this.compileType(),
       this.compileParent(),
       this.compileMediaBox(),
-      this.compileResources(),
+      ...this.compileContentReferences(),
+      ...this.compileResources(),
       ...this.endObject()
     ];
   }
