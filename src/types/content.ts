@@ -23,7 +23,7 @@ export class Content extends PdfObject {
 
     return [
       `${this.Id} ${this.Generation} obj`,
-      `<< /Length ${utf8Encode.encode(this.Stream.join('\n') + '\n').length} >>`
+      `<< /Length ${utf8Encode.encode(this.Stream.join('\n')).length} >>`
     ];
   }
 

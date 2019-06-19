@@ -2,6 +2,7 @@ import { PdfObjectType } from './pdfobjecttype.enum';
 import { PdfObjectReference } from './pdfobjectreference';
 
 import { TextEncoder } from 'util';
+import { ControlCharacters } from '../controlcharacters';
 
 /**
  *
@@ -82,7 +83,7 @@ export abstract class PdfObject {
   get ByteLength(): number {
     let utf8Encode = new TextEncoder();
 
-    this._compiled = this.compile().join('\n') + '\n';
+    this._compiled = this.compile().join(ControlCharacters.EOL);
     this._byteLength = utf8Encode.encode(this._compiled).length;
 
     return this._byteLength;

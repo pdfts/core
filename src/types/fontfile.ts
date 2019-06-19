@@ -1,5 +1,6 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
+import { TextEncoder } from 'util';
 
 /**
  *
@@ -48,9 +49,10 @@ export class FontFile extends PdfObject {
    * @memberof FontFile
    */
   compileUnprocessed() {
+    let encoder = new TextEncoder();
     return [
-      `/Length ${this.Length + 4}`,
-      `/Length1 ${this.Length1 + 4}`,
+      `/Length ${this.Length}`,
+      `/Length1 ${this.Length1}`,
       `/Filter /FlateDecode`
     ];
   }
