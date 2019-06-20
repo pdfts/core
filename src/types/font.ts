@@ -34,9 +34,13 @@ export class Font extends PdfObject {
     return [
       `/Type /Font`,
       `/Subtype /TrueType`,
+      `/Encoding /WinAnsiEncoding`,
       `/BaseFont /${this._fontDescriptor.FontName}`,
       `/FirstChar ${this._fontFile.FirstChar}`,
       `/LastChar ${this._fontFile.LastChar}`,
+      `/FontDescriptor ${this._fontDescriptor.Id} ${
+        this._fontDescriptor.Generation
+      } R`,
       `/Widths ${this._fontWidths.Id} ${this._fontWidths.Generation} R`
     ];
   }

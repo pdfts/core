@@ -1,6 +1,7 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
-import { TextEncoder } from 'util';
+import { Base64 } from '../base64';
+import { readFileSync } from 'fs';
 
 /**
  *
@@ -36,7 +37,7 @@ export class FontFile extends PdfObject {
     return [
       '>>',
       'stream',
-      Buffer.from(this.Stream, 'base64').toString(),
+      readFileSync('./src/fonts/diverda.compressed.ttf', 'binary'),
       'endstream',
       'endobj'
     ];
@@ -49,7 +50,6 @@ export class FontFile extends PdfObject {
    * @memberof FontFile
    */
   compileUnprocessed() {
-    let encoder = new TextEncoder();
     return [
       `/Length ${this.Length}`,
       `/Length1 ${this.Length1}`,

@@ -6,16 +6,22 @@ doc
   .addFont('DiverdaSansCom-Medium')
   .text([
     'BT',
-    '  /F0 24 Tf',
+    '  /DiverdaSansCom-Medium 24 Tf',
     '  100 100 Td',
-    '  (abcdefghijklmnopqrstuvwxyz) Tj',
+    '  2 Tr',
+    '  (abcdefghijklmnopqrstuvwxyz)Tj',
     'ET'
   ]);
 
-fs.writeFile(__dirname + '/test.pdf', doc.compile(), function(err) {
-  if (err) {
-    return console.log(err);
-  }
+fs.writeFile(
+  __dirname + '/test.pdf',
+  doc.compile(),
+  { encoding: 'binary' },
+  function(err) {
+    if (err) {
+      return console.log(err);
+    }
 
-  console.log('test.pdf saved!');
-});
+    console.log('test.pdf saved!');
+  }
+);

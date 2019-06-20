@@ -152,7 +152,7 @@ export class PDFDocument {
     // #region objects
     this.objects.forEach(object => {
       this.xref.Offsets.push({
-        Position: utf8Encode.encode(file).length,
+        Position: file.length,
         Generation: object.Generation,
         Free: false
       });
@@ -164,7 +164,7 @@ export class PDFDocument {
 
     // #region xref
     // set xref offset right before we compile the xref table
-    this.xref.Offset = utf8Encode.encode(file).length;
+    this.xref.Offset = file.length;
 
     file += 'xref' + ControlCharacters.EOL;
     file += 0 + ' ' + this.xref.Offsets.length + ControlCharacters.EOL;

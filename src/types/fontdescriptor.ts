@@ -42,9 +42,10 @@ export class FontDescriptor extends PdfObject {
    */
   compileUnprocessed() {
     return [
+      `/Type /FontDescriptor`,
       `/FontName /${this.FontName}`,
-      `/FontFamily ${this.FontFamily}`,
-      `/FontStretch ${this.FontStretch}`,
+      `/FontFamily (${this.FontFamily})`,
+      `/FontStretch /${this.FontStretch}`,
       `/FontWeight ${this.FontWeight}`,
       `/Flags ${this.Flags}`,
       `/FontBBox [${this.FontBBox.join(' ')}]`,
