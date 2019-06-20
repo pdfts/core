@@ -58,7 +58,9 @@ export class Page extends PdfObject {
       '/Resources <<',
       '  /Font <<',
       ...this.Fonts.map((font, index) => {
-        return `    /${'DiverdaSansCom'} ${font.Id} ${font.Generation} R`;
+        return `    /${'DiverdaSansCom-Medium'} ${font.Id} ${
+          font.Generation
+        } R`;
       }),
       '  >>',
       '>>'
