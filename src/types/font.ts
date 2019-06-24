@@ -1,7 +1,6 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { FontDescriptor } from './fontdescriptor';
-import { FontWidths } from './fontwidths';
 import { FontFile } from './fontfile';
 
 /**
@@ -12,16 +11,23 @@ import { FontFile } from './fontfile';
  * @extends {PdfObject}
  */
 export class Font extends PdfObject {
+  public BaseFont: string;
+
   constructor(
     public Id: number,
     public Generation: number,
-    private _fontFile: FontFile,
-    private _fontDescriptor: FontDescriptor,
-    private _fontWidths: FontWidths
+    private _fontFile?: FontFile,
+    private _fontDescriptor?: FontDescriptor,
+    private _fontWidths?: any[],
+    private _subType: string = 'TrueType',
+    private _baseFont: string = 'Helvetica'
   ) {
     super();
 
     this.Type = PdfObjectType.Font;
+    this.BaseFont = this._fontDescriptor
+      ? this._fontDescriptor.FontName
+      : _baseFont;
   }
 
   /**
@@ -33,15 +39,17 @@ export class Font extends PdfObject {
   compileUnprocessed() {
     return [
       `/Type /Font`,
-      `/Subtype /TrueType`,
+      `/Subtype /${this._subType}`,
       `/Encoding /WinAnsiEncoding`,
-      `/BaseFont /${this._fontDescriptor.FontName}`,
-      `/FirstChar ${this._fontFile.FirstChar}`,
-      `/LastChar ${this._fontFile.LastChar}`,
-      `/FontDescriptor ${this._fontDescriptor.Id} ${
-        this._fontDescriptor.Generation
-      } R`,
-      `/Widths ${this._fontWidths.Id} ${this._fontWidths.Generation} R`
+      `/BaseFont /${this.BaseFont}`,
+      this._fontFile ? `/FirstChar ${this._fontFile.FirstChar}` : '',
+      this._fontFile ? `/LastChar ${this._fontFile.LastChar}` : '',
+      this._fontDescriptor
+        ? `/FontDescriptor ${this._fontDescriptor.Id} ${
+            this._fontDescriptor.Generation
+          } R`
+        : '',
+      this._fontWidths ? `/Widths [${this._fontWidths.join(' ')}]` : ''
     ];
   }
 

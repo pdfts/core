@@ -9,7 +9,6 @@ import { ControlCharacters } from './controlcharacters';
 import { Pages, Catalog, Page } from './base/pdfobjecttypes';
 import { FontDescriptor } from './types/fontdescriptor';
 import { Font } from './types/font';
-import { FontWidths } from './types/fontwidths';
 import { FontFile } from './types/fontfile';
 import { Filespec } from './types/filespec';
 import { EmbeddedFile } from './types/embeddedfile';
@@ -21,6 +20,7 @@ import diverda = require('./fonts/diverda.json');
 import times = require('./fonts/times-roman.json');
 import { PdfObjectReference } from './base/pdfobjectreference';
 import { Content } from './types/content';
+import { StandardFonts } from './base/standardfonts';
 
 /**
  * This is what we want. A PDF Document :3
@@ -306,9 +306,6 @@ export class PDFDocument {
     );
     this.objects.push(fontFile);
 
-    let fontWidths = new FontWidths(this.nextObjectId, 0, fontJSON.Widths);
-    this.objects.push(fontWidths);
-
     let fontDescriptor = new FontDescriptor(
       this.nextObjectId,
       0,
@@ -335,7 +332,7 @@ export class PDFDocument {
       0,
       fontFile,
       fontDescriptor,
-      fontWidths
+      fontJSON.Widths
     );
 
     this.fonts.push(font);
@@ -344,6 +341,39 @@ export class PDFDocument {
     return this;
   }
 
+  /**
+   * reference a top 14 font into the pdf by name
+   * (does not conform the PDF/A standard since it does not embed the font program)
+   *
+   * @param {string} fontName
+   * @returns
+   * @memberof PDFDocument
+   */
+  addStandardFont(fontName: StandardFonts): PDFDocument {
+    const font = new Font(
+      this.nextObjectId,
+      0,
+      null,
+      null,
+      null,
+      'Type1',
+      fontName
+    );
+    this.fonts.push(font);
+    this.objects.push(font);
+
+    return this;
+  }
+
+  /**
+   * not yet implemented
+   *
+   * @param {string} fontname
+   * @param {number} fontweight
+   * @param {number} fontsize
+   * @returns {PDFDocument}
+   * @memberof PDFDocument
+   */
   setDefaultFont(
     fontname: string,
     fontweight: number,
@@ -352,14 +382,43 @@ export class PDFDocument {
     return this;
   }
 
+  /**
+   * active page identifier
+   *
+   * @private
+   * @type {number}
+   * @memberof PDFDocument
+   */
   private _activePage: number = 1;
-  setActivePage(index: number) {
+  /**
+   * active page setter
+   *
+   * @param {number} index
+   * @memberof PDFDocument
+   */
+  setActivePage(index: number): PDFDocument {
     this._activePage = index;
+
+    return this;
   }
+  /**
+   * active page getter
+   *
+   * @readonly
+   * @type {PdfObjectReference}
+   * @memberof PDFDocument
+   */
   get ActivePage(): PdfObjectReference {
     return this.pagesDictionary.Kids[this._activePage - 1];
   }
 
+  /**
+   * add text to the current active page
+   *
+   * @param {string[]} text
+   * @returns {PDFDocument}
+   * @memberof PDFDocument
+   */
   text(text: string[]): PDFDocument {
     const page: Page = this.pages.find(page => {
       return page.Id === this.ActivePage.Id;
@@ -371,6 +430,41 @@ export class PDFDocument {
     page.Contents.push(content);
     this.objects.push(content);
 
+    return this;
+  }
+
+  /**
+   * add a signature field to the document
+   *
+   * @param {string} fieldName
+   * @param {Position} position
+   * @param {*} [style]
+   * @returns {PDFDocument}
+   * @memberof PDFDocument
+   */
+  addSignatureField(
+    fieldName: string,
+    position: Position,
+    style?: any
+  ): PDFDocument {
+    return this;
+  }
+
+  /**
+   * fill a signature field
+   * (also attached biometric data as a file if provided)
+   *
+   * @param {string} fieldName
+   * @param {ImageBitmap} image
+   * @param {*} [biometrics]
+   * @returns {PDFDocument}
+   * @memberof PDFDocument
+   */
+  fillSignature(
+    fieldName: string,
+    image: ImageBitmap,
+    biometrics?: any
+  ): PDFDocument {
     return this;
   }
 }

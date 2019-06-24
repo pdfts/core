@@ -1,5 +1,6 @@
 import { PDFDocument } from './pdfdocument';
 import { PageSizes, PageSize, PageOrientation } from './pagesizes';
+import { StandardFonts } from './base/standardfonts';
 
 (function() {
   let w: any = window;
@@ -7,4 +8,5 @@ import { PageSizes, PageSize, PageOrientation } from './pagesizes';
   w.PageSizes = PageSizes;
   w.PageSize = PageSize;
   w.PageOrientation = PageOrientation;
+  w.StandardFonts = StandardFonts;
 })();

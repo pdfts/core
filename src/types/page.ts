@@ -2,6 +2,7 @@ import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { PdfObjectReference } from '../base/pdfobjectreference';
 import { PageSize, PageOrientation } from '../pagesizes';
+import { Font } from './font';
 
 export class Page extends PdfObject {
   /**
@@ -12,7 +13,7 @@ export class Page extends PdfObject {
   public MediaBox = [0, 0, 0, 0];
 
   public Contents: PdfObjectReference[] = [];
-  public Fonts: PdfObjectReference[] = [];
+  public Fonts: Font[] = [];
 
   constructor(
     public Id: number,
@@ -58,9 +59,7 @@ export class Page extends PdfObject {
       '/Resources <<',
       '  /Font <<',
       ...this.Fonts.map((font, index) => {
-        return `    /${'DiverdaSansCom-Medium'} ${font.Id} ${
-          font.Generation
-        } R`;
+        return `    /${font.BaseFont} ${font.Id} ${font.Generation} R`;
       }),
       '  >>',
       '>>'
