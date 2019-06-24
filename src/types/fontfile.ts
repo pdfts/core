@@ -1,6 +1,5 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
-import { Base64 } from '../base64';
 import { readFileSync } from 'fs';
 
 /**

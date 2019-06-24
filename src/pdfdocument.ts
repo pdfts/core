@@ -132,7 +132,6 @@ export class PDFDocument {
    */
   compile(): string {
     let file: string = '';
-    let utf8Encode = new TextEncoder();
 
     this.xref = new Xref();
     this.xref.Offsets = [];

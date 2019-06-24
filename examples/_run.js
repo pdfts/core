@@ -1,5 +1,4 @@
 var fs = require('fs');
-var path = process.argv[2];
 const { exec } = require('child_process');
 
 fs.readdir(__dirname, function(err, items) {
