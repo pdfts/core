@@ -3,6 +3,9 @@ import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { PdfObjectReference } from '../base/pdfobjectreference';
 import { PageSize, PageOrientation } from '../pagesizes';
 import { Font } from './font';
+import { Annot } from './annot';
+import { ControlCharacters } from '../controlcharacters';
+import { XObject } from './xobject';
 
 export class Page extends PdfObject {
   /**
@@ -14,6 +17,8 @@ export class Page extends PdfObject {
 
   public Contents: PdfObjectReference[] = [];
   public Fonts: Font[] = [];
+  public Annots: Annot[] = [];
+  public XObjects: XObject[] = [];
 
   constructor(
     public Id: number,
@@ -48,6 +53,16 @@ export class Page extends PdfObject {
     } ${this.MediaBox[3]}]`;
   }
 
+  compileImages(): string[] {
+    return [
+      '  /XObject <<',
+      ...this.XObjects.map((obj, index) => {
+        return `    /Image${index} ${obj.Id} ${obj.Generation} R`;
+      }),
+      '  >>'
+    ];
+  }
+
   /**
    *
    *
@@ -57,11 +72,13 @@ export class Page extends PdfObject {
   compileResources(): string[] {
     return [
       '/Resources <<',
+      '  /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]',
       '  /Font <<',
       ...this.Fonts.map((font, index) => {
         return `    /${font.BaseFont} ${font.Id} ${font.Generation} R`;
       }),
       '  >>',
+      ...this.compileImages(),
       '>>'
     ];
   }
@@ -72,7 +89,6 @@ export class Page extends PdfObject {
       ...this.Contents.map((content, index) => {
         return ` ${content.Id} ${content.Generation} R`;
       }),
-      ,
       ']'
     ];
   }
@@ -92,6 +108,22 @@ export class Page extends PdfObject {
   /**
    *
    *
+   * @returns {string}
+   * @memberof Page
+   */
+  compileAnnotations(): string {
+    const annotations = this.Annots.map((annot, index) => {
+      return ` ${annot.Id} ${annot.Generation} R`;
+    });
+
+    return this.Annots.length
+      ? `/Annots [ ${annotations.join(ControlCharacters.sp)} ]`
+      : '';
+  }
+
+  /**
+   *
+   *
    * @returns {string[]}
    * @memberof Page
    */
@@ -103,6 +135,7 @@ export class Page extends PdfObject {
       this.compileMediaBox(),
       ...this.compileContentReferences(),
       ...this.compileResources(),
+      this.compileAnnotations(),
       ...this.endObject()
     ];
   }

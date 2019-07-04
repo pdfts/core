@@ -13,12 +13,12 @@ export class Sig extends PdfObject {
     // /Desc removed
     return [
       '/Type /Sig',
-      '/Filter Adobe.PPKLite',
-      '/Subfilter adbe.pkcs7.detached',
-      '/ByteRange [ 0 ********** ********** ********** ]',
-      '/Contents 8192',
-      '/Reason ?',
-      '/M ?'
+      '/Filter /Adobe.PPKLite',
+      '/Subfilter /adbe.pkcs7.detached',
+      '/ByteRange [0 /********** /********** /**********]',
+      `/Contents <${new Array(8193).join('0')}>`,
+      '/Reason (just because)',
+      '/M (D:20190611075000Z)'
     ];
   }
 

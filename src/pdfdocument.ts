@@ -21,6 +21,11 @@ import times = require('./fonts/times-roman.json');
 import { PdfObjectReference } from './base/pdfobjectreference';
 import { Content } from './types/content';
 import { StandardFonts } from './base/standardfonts';
+import { Sig } from './types/sig';
+import { Annot } from './types/annot';
+import { AcroForm } from './types/acroform';
+import { XObject } from './types/xobject';
+import { Palette } from './types/palette';
 
 /**
  * This is what we want. A PDF Document :3
@@ -65,7 +70,7 @@ export class PDFDocument {
     this.objects.push(this.catalog);
 
     this.names = new Names(this.nextObjectId, 0, []);
-    this.catalog.attachments.push(this.names);
+    this.catalog.Attachments.push(this.names);
     this.objects.push(this.names);
 
     this.pagesDictionary = new ObjectTypes.Pages(this.nextObjectId, 0);
@@ -441,11 +446,35 @@ export class PDFDocument {
    * @returns {PDFDocument}
    * @memberof PDFDocument
    */
-  addSignatureField(
-    fieldName: string,
-    position: Position,
-    style?: any
-  ): PDFDocument {
+  addSignatureField(imageData: string): PDFDocument {
+    const sig = new Sig(this.nextObjectId, 0);
+    this.objects.push(sig);
+
+    const annot = new Annot(this.nextObjectId, 0, sig, this.pages[0]);
+    this.objects.push(annot);
+
+    const acroForm = new AcroForm(this.nextObjectId, 0);
+    acroForm.Fields.push(annot);
+    this.objects.push(acroForm);
+
+    this.pages[0].Annots.push(annot);
+
+    // so weit funzt es
+
+    const image = new XObject(this.nextObjectId, 0);
+    image.Stream = imageData;
+    this.objects.push(image);
+
+    const palette = new Palette(this.nextObjectId, 0);
+    this.objects.push(palette);
+
+    image.Palette = palette;
+
+    const page: Page = this.pages.find(page => {
+      return page.Id === this.ActivePage.Id;
+    });
+    page.XObjects.push(image);
+
     return this;
   }
 
@@ -464,6 +493,10 @@ export class PDFDocument {
     image: ImageBitmap,
     biometrics?: any
   ): PDFDocument {
+    return this;
+  }
+
+  sign(): PDFDocument {
     return this;
   }
 }

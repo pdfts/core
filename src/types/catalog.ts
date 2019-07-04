@@ -1,6 +1,7 @@
 import { PdfObject } from '../base/pdfobject';
 import { PdfObjectType } from '../base/pdfobjecttype.enum';
 import { PdfObjectReference } from '../base/pdfobjectreference';
+import { AcroForm } from './acroform';
 
 /**
  *
@@ -32,7 +33,9 @@ export class Catalog extends PdfObject {
    * @type {PdfObject[]}
    * @memberof Catalog
    */
-  public attachments: PdfObject[] = [];
+  public Attachments: PdfObject[] = [];
+
+  public AcroForm: AcroForm;
 
   /**
    *Creates an instance of Catalog.
@@ -75,10 +78,10 @@ export class Catalog extends PdfObject {
    * @memberof Catalog
    */
   compileAttachments(): string[] {
-    if (this.attachments.length) {
+    if (this.Attachments.length) {
       return [
-        `/Names << /EmbeddedFiles ${this.attachments[0].Id} ${
-          this.attachments[0].Generation
+        `/Names << /EmbeddedFiles ${this.Attachments[0].Id} ${
+          this.Attachments[0].Generation
         } R >>`,
         '/PageMode /UseAttachments'
       ];
@@ -105,6 +108,19 @@ export class Catalog extends PdfObject {
   compileMetaDataReference(): string {
     return `/Metadata ${this.MetaData.Id} ${this.MetaData.Generation} R`;
   }
+  /**
+   *
+   *
+   * @returns {string}
+   * @memberof Catalog
+   */
+  compileAcroForm(): string {
+    if (this.AcroForm) {
+      return `/AcroForm ${this.AcroForm.Id} ${this.AcroForm.Generation} R`;
+    } else {
+      return '';
+    }
+  }
 
   /**
    *
@@ -118,6 +134,7 @@ export class Catalog extends PdfObject {
       this.compileType(),
       this.compilePageTreeReference(),
       this.compileMetaDataReference(),
+      this.compileAcroForm(),
       ...this.compileAttachments(),
       ...this.endObject()
     ];
