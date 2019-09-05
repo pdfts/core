@@ -2,27 +2,23 @@ const fs = require('fs');
 const pdf = require('../dist/pdf');
 const signer = require('node-signpdf').SignPdf;
 const doc = new pdf.PDFDocument(pdf.PageSizes.A4);
-
+/*
 doc
   .addStandardFont(pdf.StandardFonts.CourierBoldOblique)
-  .text(['2 J', '0.57 w', 'q 61.68 0 0 47.04 28.35 766.50 cm /Image0 Do Q'])
+  .text(['2 J', '0.57 w', 'q 410.88 0 0 102.72 28.35 710.82 cm /Image0 Do Q'])
   .addAttachment('biometric_data.json', '{}')
-  .addSignatureField(fs.readFileSync(__dirname + '/logo.png'));
+  .addSignatureField(fs.readFileSync(__dirname + '/logo.jpg'));
 
 let signedPdfBuffer = new signer().sign(
-  Buffer.from(doc.compile(), 'binary'),
+  fs.readFileSync(__dirname + '/unsigned.pdf'),
+  //Buffer.from(doc.compile(), 'binary'),
   fs.readFileSync(
     'C:\\Users\\indamed\\Documents\\github\\node-signpdf\\certificate.p12'
   )
 );
-const { verified } = new signer().verify(
-  fs.readFileSync(__dirname + '/test_signed.pdf')
-);
-
-console.log(verified);
 
 fs.writeFile(
-  __dirname + '/test_signed2.pdf',
+  __dirname + '/signed.pdf',
   signedPdfBuffer,
   { encoding: 'binary' },
   function(err) {
@@ -30,9 +26,21 @@ fs.writeFile(
       return console.log(err);
     }
 
-    console.log('test_signed2.pdf saved!');
+    console.log('signed.pdf saved!');
   }
+);*/
+
+const { verified } = new signer().verify(
+  fs.readFileSync(__dirname + '/signed.pdf')
 );
+console.log(verified);
+
+/*
+const { verified } = new signer().verify(
+  fs.readFileSync(__dirname + '/signed.pdf')
+);
+console.log(verified);
+
 
 fs.writeFile(
   __dirname + '/test.pdf',
@@ -46,3 +54,5 @@ fs.writeFile(
     console.log('test.pdf saved!');
   }
 );
+
+*/

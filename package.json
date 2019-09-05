@@ -26,6 +26,8 @@
     "zlib": "^1.0.5"
   },
   "dependencies": {
-    "@types/node": "^12.0.7"
+    "@types/node": "^12.0.7",
+    "@types/pngjs": "^3.3.2",
+    "pngjs": "^3.4.0"
   }
 }

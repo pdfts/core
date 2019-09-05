@@ -446,7 +446,7 @@ export class PDFDocument {
    * @returns {PDFDocument}
    * @memberof PDFDocument
    */
-  addSignatureField(imageData: string): PDFDocument {
+  addSignatureField(imageData: Uint8Array): PDFDocument {
     const sig = new Sig(this.nextObjectId, 0);
     this.objects.push(sig);
 
@@ -461,14 +461,14 @@ export class PDFDocument {
 
     // so weit funzt es
 
-    const image = new XObject(this.nextObjectId, 0);
+    const image = new XObject(this.nextObjectId, 0, 625, 156);
     image.Stream = imageData;
     this.objects.push(image);
 
-    const palette = new Palette(this.nextObjectId, 0);
+    /*const palette = new Palette(this.nextObjectId, 0);
     this.objects.push(palette);
 
-    image.Palette = palette;
+    image.Palette = palette;*/
 
     const page: Page = this.pages.find(page => {
       return page.Id === this.ActivePage.Id;
